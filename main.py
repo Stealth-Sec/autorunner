@@ -1,12 +1,15 @@
-#Runner
-print("Test 1 Sucessfull")
+import os
 import time
+
+print("Test 1 Sucessfull")
 time.sleep(2)
 print("Test 2 Sucessfull")
-import subprocess
-subprocess.run(["pip", "install", "selenium"])
-if subprocess.returncode == 0:
+
+try:
+    print("Installing Selenium...")
+    os.system("pip install selenium")
     print("Test 3 Sucessfull")
-else:
-    print(f"Failed to install Selenium using pip. Return code: {subprocess.returncode}")
+except Exception as e:
+    print(f"Failed to install Selenium: {str(e)}")
+
 print("End")
