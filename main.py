@@ -1,15 +1,28 @@
-import os
-import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
-print("Test 1 Sucessfull")
-time.sleep(2)
-print("Test 2 Sucessfull")
+# Set up the Chrome driver
+driver = webdriver.Chrome()
 
+# Navigate to Google
+driver.get("https://www.google.com")
+
+# Enter the search query
+search_box = driver.find_element_by_name("q")
+search_box.send_keys("Where am I")
+
+# Submit the search query
+search_box.submit()
+
+# Wait for the search results to load
 try:
-    print("Installing Selenium...")
-    os.system("pip install selenium")
-    print("Test 3 Sucessfull")
-except Exception as e:
-    print(f"Failed to install Selenium: {str(e)}")
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.ID, "res"))
+    )
+except:
+    print("Failed to load search results")
 
-print("End")
+# Close the browser
+driver.quit()
